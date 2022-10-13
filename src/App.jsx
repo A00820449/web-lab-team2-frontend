@@ -1,4 +1,6 @@
+import React from "react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import MyAppBar from "./components/MyAppBar";
 import Placeholder from "./pages/Placeholder";
 
 const router = createBrowserRouter([{
@@ -11,6 +13,9 @@ const router = createBrowserRouter([{
 
 export default function App() {
     return (
-        <RouterProvider router={router}/>
+        <React.Fragment>
+            <MyAppBar/>
+            <RouterProvider router={router}/>
+        </React.Fragment>
     )
 }
