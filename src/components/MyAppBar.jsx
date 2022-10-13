@@ -11,10 +11,10 @@ export default function MyAppBar() {
         <AppBar position='sticky'>
             <Toolbar>
                 <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
-                    <MenuIcon />
+                    <MenuIcon/>
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    My App
+                     My app
                 </Typography>
                 <IconButton size="large" aria-label="account of current user" aria-controls="menu-appbar" aria-haspopup="true" color="inherit">
                     <AccountCircle />

@@ -1,11 +1,14 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
-import MyAppBar from "./components/MyAppBar";
+import Home from "./pages/Home";
 import Placeholder from "./pages/Placeholder";
 
 const router = createBrowserRouter([{
     path: "/",
     element: <Placeholder/>
+},{
+    path: "home",
+    element: <Home />
 },{
     path: "*",
     element: <Navigate to="/" />
@@ -13,9 +16,6 @@ const router = createBrowserRouter([{
 
 export default function App() {
     return (
-        <React.Fragment>
-            <MyAppBar/>
-            <RouterProvider router={router}/>
-        </React.Fragment>
+        <RouterProvider router={router} />
     )
 }
