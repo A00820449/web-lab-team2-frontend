@@ -12,7 +12,7 @@ import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText
 
 export default function MyAppBar() {
     const [state, setState] = useState(false)
-    const drawerWidth = 400
+    const drawerWidth = "min(80vw,400px)"
     const setDrawer = (/**@type {boolean}*/state) => () => {
         setState(state)
     }
