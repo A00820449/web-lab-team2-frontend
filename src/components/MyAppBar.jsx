@@ -31,7 +31,7 @@ export default function MyAppBar() {
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            <Drawer anchor='left' open={state} onClose={setDrawer(false)}>
+            <Drawer anchor='left' open={state} onClose={setDrawer(false)} keepMounted>
                 <Box sx={{width: drawerWidth}}>
                     <List>
                         <ListItem disablePadding>
