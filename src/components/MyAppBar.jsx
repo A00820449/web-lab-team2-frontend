@@ -12,7 +12,7 @@ import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText
 
 export default function MyAppBar() {
     const [state, setState] = useState(false)
-    const drawerWidth = 400
+    const drawerWidth = "min(80vw,400px)"
     const setDrawer = (/**@type {boolean}*/state) => () => {
         setState(state)
     }
@@ -31,7 +31,7 @@ export default function MyAppBar() {
                     </IconButton>
                 </Toolbar>
             </AppBar>
-            <Drawer anchor='left' open={state} onClose={setDrawer(false)}>
+            <Drawer anchor='left' open={state} onClose={setDrawer(false)} keepMounted>
                 <Box sx={{width: drawerWidth}}>
                     <List>
                         <ListItem disablePadding>
