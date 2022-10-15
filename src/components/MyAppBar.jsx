@@ -32,22 +32,22 @@ export default function MyAppBar() {
                 </Toolbar>
             </AppBar>
             <Drawer anchor='left' open={state} onClose={setDrawer(false)} keepMounted>
-                <Box sx={{width: drawerWidth}}>
+                <Box sx={{width: drawerWidth}} onClick={setDrawer(false)}>
                     <List>
                         <ListItem disablePadding>
-                            <ListItemButton LinkComponent={RouterLink} to="/">
-                                <ListItemIcon>
-                                    <WebIcon />
-                                </ListItemIcon>
-                                <ListItemText primary="Placeholder"/>
-                            </ListItemButton>
-                        </ListItem>
-                        <ListItem disablePadding>
-                            <ListItemButton LinkComponent={RouterLink} to="/home">
+                            <ListItemButton component={RouterLink} to="home">
                                 <ListItemIcon>
                                     <HomeIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary="Home"/>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={RouterLink} to="placeholder">
+                                <ListItemIcon>
+                                    <WebIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="Placeholder"/>
                             </ListItemButton>
                         </ListItem>
                     </List>

@@ -1,5 +1,5 @@
 import React from "react";
-import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
 import Home from "./pages/Home";
 import Placeholder from "./pages/Placeholder";
@@ -9,15 +9,22 @@ const router = createBrowserRouter([{
     element: <AppLayout/>,
     children: [
         {
+            index: true,
+            element: <Navigate to="home" />
+        },
+        {
             path: "home",
             element: <Home />
         },
         {
-            path: "",
+            path: "placeholder",
             element: <Placeholder/>
+        },
+        {
+            path: "*",
+            element: <div>404</div>
         }
     ],
-    errorElement: <Navigate to="/"/>
 }])
 
 export default function App() {
