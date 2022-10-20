@@ -20,7 +20,7 @@ export default function AppLayout() {
             })
             const data = await res.json()
             if (res.status === 200)
-                setUser(data.info.username)
+                setUser(data.info.name)
             else
                 throw new Error(`Status: ${res.status}`)
         }

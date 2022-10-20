@@ -1,4 +1,4 @@
-import { Container, Button } from "@mui/material";
+import { Container, Button, Typography } from "@mui/material";
 import { useContext, useState } from "react";
 import { Navigate } from "react-router-dom";
 import { AppContext } from "../App";
@@ -12,7 +12,7 @@ export default function UserPage() {
     }
     return (
         <Container>
-            User page
+            <Typography>User page</Typography>
             <Button onClick={handleClick}>Logout</Button>
             {redirect && <Navigate to="/"/>}
         </Container>
