@@ -8,7 +8,8 @@ export default function AppLayout() {
     const [user, setUser] = useState(null)
     const [redirect, setRedirect] = useState(false)
 
-    useEffect(()=>{
+    useEffect(
+        ()=>{
         const f = async () => {
             const url = new URL(ctx.apiURL)
             url.pathname = "/users/info"
@@ -29,7 +30,9 @@ export default function AppLayout() {
             ctx.setToken("")
             setRedirect(true)
         })
-    }, [])
+    }, 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [])
     return (
         <Fragment>
             <MyAppBar />
