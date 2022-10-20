@@ -17,7 +17,17 @@ export default function SignUp() {
         setDisableButton(true)
 
         const formData = new FormData(event.currentTarget)
-        
+        const username = formData.get("username")
+        const password = formData.get("password")
+        const password2 = formData.get("password2")
+        const name = formData.get("name")
+
+        if (password !== password2) {
+            setErrmsg("Passwords do not match")
+            setDisableButton(false)
+            return
+        }
+
         const url = new URL(ctx.apiURL)
         url.pathname = "/users/create"
         let res
@@ -27,7 +37,7 @@ export default function SignUp() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({username: formData.get("username"), password: formData.get("password"), name: formData.get("name")})
+                body: JSON.stringify({username, password, name})
             })
         }
         catch(e) {
@@ -69,6 +79,7 @@ export default function SignUp() {
                     <TextField margin="normal" required fullWidth id="name" label="Name" name="name" autoComplete="name" autoFocus/>
                     <TextField margin="normal" required fullWidth id="username" label="Username" name="username" autoComplete="username"/>
                     <TextField margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password"/>
+                    <TextField margin="normal" required fullWidth name="password2" label="Confirm password" type="password" id="password2" autoComplete="current-password"/>
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={disableButton}>
                         Sign Up
                     </Button>
