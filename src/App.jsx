@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Placeholder from "./pages/Placeholder";
+import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
 
 const apiURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost3000"
@@ -41,6 +42,9 @@ const router = createBrowserRouter([{
 },{
     path: "/login",
     element: <Login/>
+},{
+    path: "/signup",
+    element: <SignUp/>
 },{
     path: "*",
     element: <Error404/>

@@ -1,10 +1,10 @@
 import { Container, Typography, Link, Avatar, Box, TextField, Grid, Button, Alert } from "@mui/material";
 import { Link as RouterLink, Navigate } from "react-router-dom";
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { useContext, useState } from "react";
 import { AppContext } from "../App";
 
-export default function Login() {
+export default function SignUp() {
     const [disableButton, setDisableButton] = useState(false)
     const [errmsg, setErrmsg] = useState("")
     const [redirect, setRedirect] = useState(false)
@@ -19,7 +19,7 @@ export default function Login() {
         const formData = new FormData(event.currentTarget)
         
         const url = new URL(ctx.apiURL)
-        url.pathname = "/users/auth"
+        url.pathname = "/users/create"
         let res
         try {
             res = await fetch(url.toString(), {
@@ -27,7 +27,7 @@ export default function Login() {
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({username: formData.get("username"), password: formData.get("password")})
+                body: JSON.stringify({username: formData.get("username"), password: formData.get("password"), name: formData.get("name")})
             })
         }
         catch(e) {
@@ -52,9 +52,7 @@ export default function Login() {
             return
         }
 
-        console.log(data.token)
         setErrmsg("")
-        ctx.setToken(data.token)
         setRedirect(true)
     }
     return (
@@ -62,30 +60,31 @@ export default function Login() {
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8}}>
                 {errmsg && <Alert severity={"error"}>{errmsg}</Alert>}
                 <Avatar>
-                    <LockOutlinedIcon/>
+                    <CreateOutlinedIcon/>
                 </Avatar>
                 <Typography component={'h1'} variant={"h4"}>
-                    Log in
+                    Sign up
                 </Typography>
                 <Box component={'form'} sx={{ mt: 1 }} onSubmit={handleSubmit}>
-                    <TextField margin="normal" required fullWidth id="username" label="Username" name="username" autoComplete="username" autoFocus/>
+                    <TextField margin="normal" required fullWidth id="name" label="Name" name="name" autoComplete="name" autoFocus/>
+                    <TextField margin="normal" required fullWidth id="username" label="Username" name="username" autoComplete="username"/>
                     <TextField margin="normal" required fullWidth name="password" label="Password" type="password" id="password" autoComplete="current-password"/>
                     <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={disableButton}>
-                        Log In
+                        Sign Up
                     </Button>
                     <Grid container>
                         <Grid item xs>
                             <Link component={RouterLink} to="/">Go Back</Link>
                         </Grid>
                         <Grid item>
-                            <Link component={RouterLink} to="/signup" variant="body2">
-                                {"Don't have an account? Sign Up"}
+                            <Link component={RouterLink} to="/login" variant="body2">
+                                {"Already have an account? Log in"}
                             </Link>
                         </Grid>
                     </Grid>
                 </Box>
             </Box>
-            {redirect && <Navigate to="/app/home"/>}
+            {redirect && <Navigate to="/login"/>}
         </Container>
     )
 }
