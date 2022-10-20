@@ -23,7 +23,7 @@ export default function Login() {
         console.log(formData.get("username"), formData.get("password"))
         let res
         try {
-            res = await fetch(url, {
+            res = await fetch(url.toString(), {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
