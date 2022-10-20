@@ -1,5 +1,5 @@
 import { Container, Typography, Link, Avatar, Box, TextField, Grid, Button, Alert } from "@mui/material";
-import { Link as RouterLink, Navigate } from "react-router-dom";
+import { Link as RouterLink, Navigate, useSearchParams } from "react-router-dom";
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useContext, useState } from "react";
 import { AppContext } from "../App";
@@ -8,16 +8,17 @@ export default function Login() {
     const [disableButton, setDisableButton] = useState(false)
     const [errmsg, setErrmsg] = useState("")
     const [redirect, setRedirect] = useState(false)
+    const [searchParams,] = useSearchParams()
     const ctx = useContext(AppContext)
+    const successfulRegister = !!searchParams.get("successfulRegister")
     /**
      * @param {Event} event 
      */
     const handleSubmit = async (event) => {
         event.preventDefault()
         setDisableButton(true)
-
         const formData = new FormData(event.currentTarget)
-        
+
         const url = new URL(ctx.apiURL)
         url.pathname = "/users/auth"
         let res
@@ -60,6 +61,7 @@ export default function Login() {
     return (
         <Container maxWidth="xs">
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8}}>
+                {successfulRegister && <Alert severity={"success"}>Sign up succesful. Please log in.</Alert>}
                 {errmsg && <Alert severity={"error"}>{errmsg}</Alert>}
                 <Avatar>
                     <LockOutlinedIcon/>

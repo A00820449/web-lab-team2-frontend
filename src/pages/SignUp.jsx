@@ -84,7 +84,7 @@ export default function SignUp() {
                     </Grid>
                 </Box>
             </Box>
-            {redirect && <Navigate to="/login"/>}
+            {redirect && <Navigate to="/login?successfulRegister=true"/>}
         </Container>
     )
 }
