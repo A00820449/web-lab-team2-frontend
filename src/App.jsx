@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import AppLayout from "./layouts/AppLayout";
 import Error404 from "./pages/Error404";
@@ -9,9 +10,11 @@ import Placeholder from "./pages/Placeholder";
 import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
 
-const apiURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost3000"
+export const apiURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost3000"
 const token = localStorage.getItem("token") || ""
 export const AppContext = React.createContext({apiURL: "", token: "", setToken: null})
+
+export const queryClient = new QueryClient()
 
 const router = createBrowserRouter([{
     path: "/",
@@ -60,8 +63,11 @@ export default function App() {
         localStorage.setItem("token", token)
     }
     return (
-        <AppContext.Provider value={{apiURL: apiURL, token: JWT, setToken: setToken}}>
-            <RouterProvider router={router} />
-        </AppContext.Provider>
+        <QueryClientProvider client={queryClient}>
+            <AppContext.Provider value={{apiURL: apiURL, token: JWT, setToken: setToken}}>
+                <RouterProvider router={router} />
+            </AppContext.Provider>
+            
+        </QueryClientProvider>
     )
 }

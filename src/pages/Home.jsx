@@ -10,7 +10,7 @@ export default function Home() {
                 <Typography>
                     Home
                 </Typography>
-                <p>Hello, {user}</p>
+                <p>Hello, {user.name}</p>
             </Container>
         </React.Fragment>
     )

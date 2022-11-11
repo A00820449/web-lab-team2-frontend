@@ -3,6 +3,7 @@ import { Link as RouterLink, Navigate, useSearchParams } from "react-router-dom"
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useContext, useState } from "react";
 import { AppContext } from "../App";
+import { getUserToken } from "../api";
 
 export default function Login() {
     const [disableButton, setDisableButton] = useState(false)
@@ -21,42 +22,28 @@ export default function Login() {
 
         const url = new URL(ctx.apiURL)
         url.pathname = "/users/auth"
+
+        const username = formData.get("username")
+        const password = formData.get("password")
+        
         let res
         try {
-            res = await fetch(url.toString(), {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({username: formData.get("username"), password: formData.get("password")})
-            })
+            res = await getUserToken(username, password)
         }
         catch(e) {
+            setDisableButton(false)
+            if (e.response) {
+                setErrmsg(e.response.data.error)
+                return
+            } 
             setErrmsg(e.toString())
-            setDisableButton(false)
             return
         }
 
-        let data
-        try {
-            data = await res.json()
-        }
-        catch(e) {
-            setErrmsg(res.statusText)
-            setDisableButton(false)
-            return
-        }
-
-        if (res.status !== 200) {
-            setErrmsg(data.error)
-            setDisableButton(false)
-            return
-        }
-
-        console.log(data.token)
-        setErrmsg("")
-        ctx.setToken(data.token)
+        ctx.setToken(res.data.token)
         setRedirect(true)
+        setErrmsg("")
+        setDisableButton(false)
     }
     return (
         <Container maxWidth="xs">

@@ -3,12 +3,12 @@ import { Link as RouterLink, Navigate } from "react-router-dom";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
 import { useContext, useState } from "react";
 import { AppContext } from "../App";
+import { postNewUser } from "../api";
 
 export default function SignUp() {
     const [disableButton, setDisableButton] = useState(false)
     const [errmsg, setErrmsg] = useState("")
     const [redirect, setRedirect] = useState(false)
-    const ctx = useContext(AppContext)
     /**
      * @param {Event} event 
      */
@@ -28,40 +28,20 @@ export default function SignUp() {
             return
         }
 
-        const url = new URL(ctx.apiURL)
-        url.pathname = "/users/create"
-        let res
         try {
-            res = await fetch(url.toString(), {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({username, password, name})
-            })
+            await postNewUser(username, password, name)
         }
         catch(e) {
+            setDisableButton(false)
+            if (e.response) {
+                setErrmsg(e.response.data.error)
+                return
+            } 
             setErrmsg(e.toString())
-            setDisableButton(false)
             return
         }
 
-        let data
-        try {
-            data = await res.json()
-        }
-        catch(e) {
-            setErrmsg(res.statusText)
-            setDisableButton(false)
-            return
-        }
-
-        if (res.status !== 200) {
-            setErrmsg(data.error)
-            setDisableButton(false)
-            return
-        }
-
+        setDisableButton(false)
         setErrmsg("")
         setRedirect(true)
     }
