@@ -27,18 +27,22 @@ export default function Login() {
             res = await getUserToken(username, password)
         }
         catch(e) {
-            setDisableButton(false)
-            if (e.response) {
-                setErrmsg(e.response.data.error)
-                return
-            } 
             setErrmsg(e.toString())
+            setDisableButton(false)
+            return
+        }
+
+        if (res.status !== 200) {
+            setErrmsg(res.data.error || res.statusText)
+            setDisableButton(false)
             return
         }
 
         ctx.setToken(res.data.token)
 
-        setRedirect(true)
+        setTimeout(()=>{
+            setRedirect(true)
+        },1000)
     }
 
     if (redirect) {
@@ -49,7 +53,7 @@ export default function Login() {
         <Container maxWidth="xs">
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8}}>
                 {successfulRegister && <Alert severity={"success"}>Sign up succesful. Please log in.</Alert>}
-                {errmsg && <Alert severity={"error"}>{errmsg}</Alert>}
+                {errmsg && <Alert severity={"error"}>Error: {errmsg}</Alert>}
                 <Avatar>
                     <LockOutlinedIcon/>
                 </Avatar>

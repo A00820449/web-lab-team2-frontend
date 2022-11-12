@@ -27,21 +27,22 @@ export default function SignUp() {
             return
         }
 
+        let res
         try {
-            await postNewUser(username, password, name)
+            res = await postNewUser(username, password, name)
         }
         catch(e) {
             setDisableButton(false)
-            if (e.response) {
-                setErrmsg(e.response.data.error)
-                return
-            } 
             setErrmsg(e.toString())
             return
         }
 
-        setDisableButton(false)
-        setErrmsg("")
+        if (res.status !== 200) {
+            setDisableButton(false)
+            setErrmsg(res.data.error || res.statusText)
+            return
+        }
+
         setRedirect(true)
     }
 
