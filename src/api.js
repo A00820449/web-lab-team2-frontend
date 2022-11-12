@@ -28,7 +28,7 @@ export async function getUserToken(username, password) {
 export async function postNewUser(username, password, name) {
     const url = new URL(apiURL)
     url.pathname = "/users/create"
-
+    
     const res = await axios.post(url.toString(), {
         username: username,
         password: password,
