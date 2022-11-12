@@ -1,13 +1,10 @@
+import { Container } from "@mui/material";
 import { Fragment, useContext} from "react";
 import { useQuery } from "react-query";
 import { Navigate, Outlet } from "react-router-dom";
 import { getUserInfo } from "../api";
 import { AppContext } from "../App";
 import MyAppBar from "../components/MyAppBar";
-
-export async function loader(...args) {
-    //console.log("loader args:", args)    
-}
 
 export default function AppLayout() {
     const ctx = useContext(AppContext)
@@ -31,7 +28,7 @@ export default function AppLayout() {
     return (
         <Fragment>
             <MyAppBar />
-            {user? <Outlet context={{user: user}}/>: "Loading"}
+            {user? <Outlet context={{user: user}}/>: <Container>Loading...</Container>}
         </Fragment>
     )
 }

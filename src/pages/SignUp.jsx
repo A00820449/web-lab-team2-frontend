@@ -1,8 +1,7 @@
 import { Container, Typography, Link, Avatar, Box, TextField, Grid, Button, Alert } from "@mui/material";
 import { Link as RouterLink, Navigate } from "react-router-dom";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import { useContext, useState } from "react";
-import { AppContext } from "../App";
+import { useState } from "react";
 import { postNewUser } from "../api";
 
 export default function SignUp() {
@@ -45,6 +44,11 @@ export default function SignUp() {
         setErrmsg("")
         setRedirect(true)
     }
+
+    if (redirect) {
+        return <Navigate to="/login?successfulRegister=true"/>
+    }
+    
     return (
         <Container maxWidth="xs">
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8}}>
@@ -75,7 +79,6 @@ export default function SignUp() {
                     </Grid>
                 </Box>
             </Box>
-            {redirect && <Navigate to="/login?successfulRegister=true"/>}
         </Container>
     )
 }

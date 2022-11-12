@@ -19,10 +19,6 @@ export default function Login() {
         event.preventDefault()
         setDisableButton(true)
         const formData = new FormData(event.currentTarget)
-
-        const url = new URL(ctx.apiURL)
-        url.pathname = "/users/auth"
-
         const username = formData.get("username")
         const password = formData.get("password")
         
@@ -41,10 +37,14 @@ export default function Login() {
         }
 
         ctx.setToken(res.data.token)
+
         setRedirect(true)
-        setErrmsg("")
-        setDisableButton(false)
     }
+
+    if (redirect) {
+        return <Navigate to="/app/home"/>
+    }
+
     return (
         <Container maxWidth="xs">
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8}}>
@@ -74,7 +74,6 @@ export default function Login() {
                     </Grid>
                 </Box>
             </Box>
-            {redirect && <Navigate to="/app/home"/>}
         </Container>
     )
 }
