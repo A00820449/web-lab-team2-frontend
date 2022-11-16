@@ -11,23 +11,19 @@ export default function Landing() {
 }*/
 
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import CameraIcon from '@mui/icons-material/PhotoCamera';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from "react-router-dom";
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import AlbumCard from '../components/AlbumCard';
+import { useQuery } from 'react-query';
+import { getAllCards } from '../api';
 
 function Copyright() {
   return (
@@ -42,26 +38,38 @@ function Copyright() {
   );
 }
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+const theme = createTheme({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        body: {
+          "background-image": "url(https://upload.wikimedia.org/wikipedia/commons/f/fb/On%C3%A7a_do_Pantanal.jpg)",
+          "background-repeat": "no-repeat",
+          "background-attachment": "fixed",
+          "background-size": "cover",
+          "background-position": "center"
+        }
+      }
+    }
+  }
+});
 
-const theme = createTheme();
+export default function Landing() {
+  const {data, status} = useQuery("allCards", async ()=> {return await getAllCards(10)})
 
-export default function Album() {
+  let cards = []
+  if (status === "success") {
+    cards = data.data.cards || []
+  }
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Animalia
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main>
         {/* Hero unit */}
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            bgcolor: 'rgba(255,255,255,0.8)',
             pt: 8,
             pb: 6,
           }}
@@ -88,7 +96,7 @@ export default function Album() {
               justifyContent="center"
             >
                 <Button variant="contained">
-                    <Link component={RouterLink} to="/app/home">Enter app</Link>
+                    <Link component={RouterLink} sx={{textDecoration: "none", color: "inherit"}} to="/app/home">Enter app</Link>
                 </Button>
             </Stack>
           </Container>
@@ -96,35 +104,8 @@ export default function Album() {
         <Container sx={{ py: 8 }} maxWidth="md">
           {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
-                >
-                  <CardMedia
-                    component="img"
-                    sx={{
-                      // 16:9
-                      pt: '56.25%',
-                    }}
-                    image="https://source.unsplash.com/random"
-                    alt="random"
-                  />
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      Heading
-                    </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe the
-                      content.
-                    </Typography>
-                  </CardContent>
-                  <CardActions>
-                    <Button size="small">View</Button>
-                    <Button size="small">Edit</Button>
-                  </CardActions>
-                </Card>
-              </Grid>
+            {cards.map((card, i) => (
+              <AlbumCard key={i} card={card}></AlbumCard>
             ))}
           </Grid>
         </Container>

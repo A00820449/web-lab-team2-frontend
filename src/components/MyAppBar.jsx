@@ -46,7 +46,7 @@ export default function MyAppBar() {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        <Box component={RouterLink} to="home" sx={{ display: 'inline', textDecoration: "none", color: "inherit" }}>
+                        <Box component={RouterLink} to="/" sx={{ display: 'inline', textDecoration: "none", color: "inherit" }}>
                             Animalia
                         </Box>
                     </Typography>
