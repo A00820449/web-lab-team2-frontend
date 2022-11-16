@@ -1,14 +1,13 @@
 import { Container, Typography, Link, Avatar, Box, TextField, Grid, Button, Alert } from "@mui/material";
 import { Link as RouterLink, Navigate } from "react-router-dom";
 import CreateOutlinedIcon from '@mui/icons-material/CreateOutlined';
-import { useContext, useState } from "react";
-import { AppContext } from "../App";
+import { useState } from "react";
+import { postNewUser } from "../api";
 
 export default function SignUp() {
     const [disableButton, setDisableButton] = useState(false)
     const [errmsg, setErrmsg] = useState("")
     const [redirect, setRedirect] = useState(false)
-    const ctx = useContext(AppContext)
     /**
      * @param {Event} event 
      */
@@ -28,43 +27,29 @@ export default function SignUp() {
             return
         }
 
-        const url = new URL(ctx.apiURL)
-        url.pathname = "/users/create"
         let res
         try {
-            res = await fetch(url.toString(), {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({username, password, name})
-            })
+            res = await postNewUser(username, password, name)
         }
         catch(e) {
+            setDisableButton(false)
             setErrmsg(e.toString())
-            setDisableButton(false)
-            return
-        }
-
-        let data
-        try {
-            data = await res.json()
-        }
-        catch(e) {
-            setErrmsg(res.statusText)
-            setDisableButton(false)
             return
         }
 
         if (res.status !== 200) {
-            setErrmsg(data.error)
             setDisableButton(false)
+            setErrmsg(res.data.error || res.statusText)
             return
         }
 
-        setErrmsg("")
         setRedirect(true)
     }
+
+    if (redirect) {
+        return <Navigate to="/login?successfulRegister=true"/>
+    }
+    
     return (
         <Container maxWidth="xs">
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8}}>
@@ -95,7 +80,6 @@ export default function SignUp() {
                     </Grid>
                 </Box>
             </Box>
-            {redirect && <Navigate to="/login?successfulRegister=true"/>}
         </Container>
     )
 }

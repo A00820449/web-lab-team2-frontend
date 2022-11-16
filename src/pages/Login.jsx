@@ -3,6 +3,7 @@ import { Link as RouterLink, Navigate, useSearchParams } from "react-router-dom"
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useContext, useState } from "react";
 import { AppContext } from "../App";
+import { getUserToken } from "../api";
 
 export default function Login() {
     const [disableButton, setDisableButton] = useState(false)
@@ -18,18 +19,12 @@ export default function Login() {
         event.preventDefault()
         setDisableButton(true)
         const formData = new FormData(event.currentTarget)
-
-        const url = new URL(ctx.apiURL)
-        url.pathname = "/users/auth"
+        const username = formData.get("username")
+        const password = formData.get("password")
+        
         let res
         try {
-            res = await fetch(url.toString(), {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({username: formData.get("username"), password: formData.get("password")})
-            })
+            res = await getUserToken(username, password)
         }
         catch(e) {
             setErrmsg(e.toString())
@@ -37,32 +32,28 @@ export default function Login() {
             return
         }
 
-        let data
-        try {
-            data = await res.json()
-        }
-        catch(e) {
-            setErrmsg(res.statusText)
-            setDisableButton(false)
-            return
-        }
-
         if (res.status !== 200) {
-            setErrmsg(data.error)
+            setErrmsg(res.data.error || res.statusText)
             setDisableButton(false)
             return
         }
 
-        console.log(data.token)
-        setErrmsg("")
-        ctx.setToken(data.token)
-        setRedirect(true)
+        ctx.setToken(res.data.token)
+
+        setTimeout(()=>{
+            setRedirect(true)
+        },1000)
     }
+
+    if (redirect) {
+        return <Navigate to="/app/home"/>
+    }
+
     return (
         <Container maxWidth="xs">
             <Box sx={{display: "flex", flexDirection: "column", alignItems: "center", marginTop: 8}}>
                 {successfulRegister && <Alert severity={"success"}>Sign up succesful. Please log in.</Alert>}
-                {errmsg && <Alert severity={"error"}>{errmsg}</Alert>}
+                {errmsg && <Alert severity={"error"}>Error: {errmsg}</Alert>}
                 <Avatar>
                     <LockOutlinedIcon/>
                 </Avatar>
@@ -87,7 +78,6 @@ export default function Login() {
                     </Grid>
                 </Box>
             </Box>
-            {redirect && <Navigate to="/app/home"/>}
         </Container>
     )
 }

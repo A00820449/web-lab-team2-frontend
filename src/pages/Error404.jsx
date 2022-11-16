@@ -1,5 +1,7 @@
+import { Container } from "@mui/material";
+
 export default function Error404() {
     return (
-        <div>404</div>
+        <Container>404</Container>
     )
 }
