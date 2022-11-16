@@ -21,7 +21,7 @@ export default function Home() {
             >
               Home
             </Typography>
-                <h3>Bienvenido, {user}</h3>
+            <h3>Bienvenido, {user.name}</h3>
             </Container>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid  xs={12} sm={6} md={4}>
