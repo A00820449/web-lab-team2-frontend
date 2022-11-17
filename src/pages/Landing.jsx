@@ -43,11 +43,11 @@ const theme = createTheme({
     MuiCssBaseline: {
       styleOverrides: {
         body: {
-          "background-image": "url(https://upload.wikimedia.org/wikipedia/commons/f/fb/On%C3%A7a_do_Pantanal.jpg)",
-          "background-repeat": "no-repeat",
-          "background-attachment": "fixed",
-          "background-size": "cover",
-          "background-position": "center"
+          backgroundImage: "url(https://upload.wikimedia.org/wikipedia/commons/f/fb/On%C3%A7a_do_Pantanal.jpg)",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          backgroundSize: "cover",
+          backgroundPosition: "center"
         }
       }
     }
@@ -99,6 +99,7 @@ export default function Landing() {
                     <Link component={RouterLink} sx={{textDecoration: "none", color: "inherit"}} to="/app/home">Enter app</Link>
                 </Button>
             </Stack>
+            <Typography sx={{textAlign: "center", paddingTop: "2rem"}}>The cards include these animals and more:</Typography>
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth="md">

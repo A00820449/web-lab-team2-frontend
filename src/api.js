@@ -55,3 +55,10 @@ export async function getAllCards(limit) {
     
     return res
 }
+
+export async function openPack() {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/openpack"
+    
+    return await axios.get(url.toString())
+}

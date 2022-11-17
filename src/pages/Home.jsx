@@ -21,7 +21,8 @@ export default function Home() {
             >
               Home
             </Typography>
-            <Typography component={'h3'}>Bienvenido, {user.name}</Typography> 
+            <Typography component={'h3'}>Welcome, {user.name}.</Typography>
+            <Typography>You have {user.packQuantity??0} unopened packs.</Typography>
             </Container>
             <Container sx={{ py: 8 }} maxWidth="md">
                 <Grid  xs={12} sm={6} md={4}>
