@@ -1,4 +1,4 @@
-import { Container } from "@mui/material";
+import { CircularProgress, Container } from "@mui/material";
 import { Fragment, useContext} from "react";
 import { useQuery } from "react-query";
 import { Navigate, Outlet } from "react-router-dom";
@@ -8,27 +8,30 @@ import MyAppBar from "../components/MyAppBar";
 
 export default function AppLayout() {
     const ctx = useContext(AppContext)
-    const {data, status} = useQuery("userInfo", async ()=> {return await getUserInfo(ctx.token)})
-    console.log(status, data)
+    const {data: res, status} = useQuery("userInfo", async ()=> {return await getUserInfo(ctx.token)})
+    console.log(status)
     
     let user = null
 
-    if (!ctx.token || status === "error") {
+    if (!ctx.token) {
+
+        console.log("No token found")
         return <Navigate to="/login"/>
     }
 
+    if (status === "error") {
+        console.log("User info error")
+        ctx.setToken("")
+    }
+
     if (status === "success") {
-        if (data.data.error) {
-            ctx.setToken("")
-            return <Navigate to="/login"/>
-        }
-        user = data.data.info
+        user = res.data.info
     }
 
     return (
         <Fragment>
             <MyAppBar />
-            {user? <Outlet context={{user: user}}/>: <Container>Loading...</Container>}
+            {user? <Outlet context={{user: user}}/>: <Container sx={{textAlign: "center"}}><CircularProgress /></Container>}
         </Fragment>
     )
 }

@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
+import { useLocalStorage } from "./hooks";
 import AppLayout from "./layouts/AppLayout";
 import Error404 from "./pages/Error404";
 import Home from "./pages/Home";
@@ -10,9 +11,9 @@ import Placeholder from "./pages/Placeholder";
 import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
 
-export const apiURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost3000"
-const token = localStorage.getItem("token") || ""
-export const AppContext = React.createContext({apiURL: "", token: "", setToken: null})
+export const apiURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:3000/"
+
+export const AppContext = React.createContext({token: "", setToken: null})
 
 export const queryClient = new QueryClient()
 
@@ -54,20 +55,13 @@ const router = createBrowserRouter([{
 }])
 
 export default function App() {
-    const [JWT, setJWT] = useState(token)
-    /**
-     * @param {string} token 
-     */
-    const setToken = (token) => {
-        setJWT(token)
-        localStorage.setItem("token", token)
-    }
+    const [JWT, setJWT] = useLocalStorage("token", "")
+
     return (
-        <QueryClientProvider client={queryClient}>
-            <AppContext.Provider value={{apiURL: apiURL, token: JWT, setToken: setToken}}>
+        <AppContext.Provider value={{token: JWT, setToken: setJWT}}>
+            <QueryClientProvider client={queryClient}>
                 <RouterProvider router={router} />
-            </AppContext.Provider>
-            
-        </QueryClientProvider>
+            </QueryClientProvider>
+        </AppContext.Provider>
     )
 }

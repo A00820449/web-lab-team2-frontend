@@ -12,8 +12,7 @@ export async function getUserInfo(token) {
     const res = await axios.get(url.toString(), {
         headers: {
             "Authorization": `Bearer ${token}`
-        },
-        validateStatus: validateStatus
+        }
     })
     return res
 }
