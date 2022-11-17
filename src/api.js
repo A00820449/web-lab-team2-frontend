@@ -46,3 +46,19 @@ export async function postNewUser(username, password, name) {
     
     return res
 }
+
+export async function getAllCards(limit) {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/getall"
+    
+    const res = await axios.get(url.toString(), {params: {limit: limit || -1}})
+    
+    return res
+}
+
+export async function openPack() {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/openpack"
+    
+    return await axios.get(url.toString())
+}
