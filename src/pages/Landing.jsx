@@ -1,15 +1,3 @@
-/*import { Container, Typography, Link } from "@mui/material";
-import { Link as RouterLink } from "react-router-dom";
-
-export default function Landing() {
-    return (
-        <Container>
-            <Typography>Landing Page</Typography>
-            <Link component={RouterLink} to="/app/home">Enter app</Link>
-        </Container>
-    )
-}*/
-
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -85,9 +73,8 @@ export default function Landing() {
               Animalia
             </Typography>
             <Typography variant="h5" align="center" color="text.secondary" paragraph>
-              Juego de cartas con proposito. Colecciona, diviertete y aprende acerca
-              de los animales en Mexico. Tarjetas coleccionables de animales comunes 
-              y raros de la republica mexicana.
+              A card game with a purpose. Collect, have fun and learn about all the animals in Mexico.
+              Trading cards that go from the most common to the rarest animals you can find in the country.
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -114,7 +101,7 @@ export default function Landing() {
       {/* Footer */}
       <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
         <Typography variant="h6" align="center" gutterBottom>
-          Footer
+          Animalia
         </Typography>
         <Typography
           variant="subtitle1"
@@ -122,7 +109,7 @@ export default function Landing() {
           color="text.secondary"
           component="p"
         >
-          Something here to give the footer a purpose!
+          Under construction.
         </Typography>
         <Copyright />
       </Box>
