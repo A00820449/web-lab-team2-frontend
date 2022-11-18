@@ -43,7 +43,7 @@ const theme = createTheme({
 });
 
 export default function Landing() {
-  const {data, status} = useQuery("allCards", async ()=> {return await getAllCards(10)})
+  const {data, status} = useQuery("allCards", async ()=> {return await getAllCards(12)})
 
   let cards = []
   if (status === "success") {
