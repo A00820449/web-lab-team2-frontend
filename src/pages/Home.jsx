@@ -4,8 +4,8 @@ import * as React from "react"
 //import CardActions from '@mui/material/CardActions';
 //import CardContent from '@mui/material/CardContent';
 //import CardMedia from '@mui/material/CardMedia';
-import { Container, /*Grid, */Typography } from "@mui/material";
-import { useOutletContext } from "react-router-dom";
+import { Box, Button, Container, Link, /*Grid, */Typography } from "@mui/material";
+import { Link as RouterLink, useOutletContext } from "react-router-dom";
 
 
 /*const Sebas = <Container sx={{ py: 8 }} maxWidth="md">
@@ -135,6 +135,18 @@ import { useOutletContext } from "react-router-dom";
 
 export default function Home() {
     const {user} = useOutletContext()
+    const packs = user.packQuantity ?? 0
+
+    const packbutton = (
+      <Box paddingY={2}>
+        <Link component={RouterLink} to="/app/packs" sx={{textDecoration: false}}>
+          <Button variant="contained">
+            Open packs
+          </Button>
+        </Link>
+      </Box>
+    )
+
     return (
         <React.Fragment>
             <Container>
@@ -148,7 +160,8 @@ export default function Home() {
               Home
             </Typography>
             <Typography component={'h3'}>Welcome, {user.name}.</Typography>
-            <Typography>You have {user.packQuantity??0} unopened packs.</Typography>
+            <Typography>You have {packs} unopened packs.</Typography>
+            {packs > 0 && packbutton}
             </Container>
             
         </React.Fragment>

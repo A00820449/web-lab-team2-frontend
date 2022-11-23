@@ -7,6 +7,7 @@ import Error404 from "./pages/Error404";
 import Home from "./pages/Home";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
+import PackPage from "./pages/PackPage";
 import Placeholder from "./pages/Placeholder";
 import SignUp from "./pages/SignUp";
 import UserPage from "./pages/UserPage";
@@ -38,6 +39,9 @@ const router = createBrowserRouter([{
         },{
             path: "user",
             element: <UserPage/>
+        },{
+            path: "packs",
+            element: <PackPage/>
         },{
             path: "*",
             element: <Navigate to="home" />

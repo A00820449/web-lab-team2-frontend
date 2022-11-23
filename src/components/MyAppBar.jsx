@@ -6,6 +6,7 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import WebIcon from '@mui/icons-material/Web';
 import HomeIcon from '@mui/icons-material/Home';
+import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Link as RouterLink } from 'react-router-dom'
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
@@ -72,6 +73,14 @@ export default function MyAppBar() {
                                     <HomeIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary="Home"/>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={RouterLink} to="packs">
+                                <ListItemIcon>
+                                    <BusinessCenterIcon/>
+                                </ListItemIcon>
+                                <ListItemText primary="Open Packs"/>
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>
