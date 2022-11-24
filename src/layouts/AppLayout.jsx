@@ -1,4 +1,4 @@
-import { Fragment, useContext} from "react";
+import { Fragment, useContext, useEffect} from "react";
 import { useQuery } from "react-query";
 import { Navigate, Outlet } from "react-router-dom";
 import { getUserInfo } from "../api";
@@ -11,19 +11,20 @@ export default function AppLayout() {
     const {data: res, status, refetch} = useQuery("userInfo", async ()=> {return await getUserInfo(ctx.token)})
     console.log(status)
     
+
+    useEffect(()=>{
+        if (status === "error") {
+            console.log("User info error")
+            ctx.setToken("")
+        } else if (status === "success") {
+            ctx.setUser(res.data.info)
+        }
+    },[status, res, ctx])
+
     if (!ctx.token) {
 
         console.log("No token found")
         return <Navigate to="/login"/>
-    }
-
-    if (status === "error") {
-        console.log("User info error")
-        ctx.setToken("")
-    }
-    
-    if (status === "success") {
-        ctx.setUser(res.data.info)
     }
 
     return (
