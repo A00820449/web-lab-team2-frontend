@@ -55,9 +55,14 @@ export async function getAllCards(limit) {
     return res
 }
 
-export async function openPack() {
+export async function openPack(token) {
     const url = new URL(apiURL)
     url.pathname = "/cards/openpack"
     
-    return await axios.get(url.toString())
+    const res = await axios.post(url.toString(),{}, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    return res
 }

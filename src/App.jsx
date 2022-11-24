@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { useLocalStorage } from "./hooks";
@@ -14,7 +14,7 @@ import UserPage from "./pages/UserPage";
 
 export const apiURL = process.env.REACT_APP_BACKEND_BASE_URL || "http://localhost:3000/"
 
-export const AppContext = React.createContext({token: "", setToken: null})
+export const AppContext = React.createContext({token: "", setToken: null, user: null, setUser: null})
 
 export const queryClient = new QueryClient()
 
@@ -60,9 +60,10 @@ const router = createBrowserRouter([{
 
 export default function App() {
     const [JWT, setJWT] = useLocalStorage("token", "")
+    const [user, setUser] = useState(null)
 
     return (
-        <AppContext.Provider value={{token: JWT, setToken: setJWT}}>
+        <AppContext.Provider value={{token: JWT, setToken: setJWT, user, setUser}}>
             <QueryClientProvider client={queryClient}>
                 <RouterProvider router={router} />
             </QueryClientProvider>

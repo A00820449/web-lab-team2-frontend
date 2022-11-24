@@ -5,7 +5,9 @@ import * as React from "react"
 //import CardContent from '@mui/material/CardContent';
 //import CardMedia from '@mui/material/CardMedia';
 import { Box, Button, Container, Link, /*Grid, */Typography } from "@mui/material";
-import { Link as RouterLink, useOutletContext } from "react-router-dom";
+import { Link as RouterLink } from "react-router-dom";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
 
 /*const Sebas = <Container sx={{ py: 8 }} maxWidth="md">
@@ -134,7 +136,7 @@ import { Link as RouterLink, useOutletContext } from "react-router-dom";
 </Container>*/
 
 export default function Home() {
-    const {user} = useOutletContext()
+    const {user} = useContext(AppContext)
     const packs = user.packQuantity ?? 0
 
     const packbutton = (

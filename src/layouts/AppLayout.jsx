@@ -8,11 +8,9 @@ import MyAppBar from "../components/MyAppBar";
 
 export default function AppLayout() {
     const ctx = useContext(AppContext)
-    const {data: res, status} = useQuery("userInfo", async ()=> {return await getUserInfo(ctx.token)})
+    const {data: res, status, refetch} = useQuery("userInfo", async ()=> {return await getUserInfo(ctx.token)})
     console.log(status)
     
-    let user = null
-
     if (!ctx.token) {
 
         console.log("No token found")
@@ -23,15 +21,15 @@ export default function AppLayout() {
         console.log("User info error")
         ctx.setToken("")
     }
-
+    
     if (status === "success") {
-        user = res.data.info
+        ctx.setUser(res.data.info)
     }
 
     return (
         <Fragment>
             <MyAppBar />
-            {user? <Outlet context={{user: user}}/>: <LoadingOverlay/>}
+            {ctx.user? <Outlet context={{refetch: refetch}}/>: <LoadingOverlay/>}
         </Fragment>
     )
 }
