@@ -66,3 +66,18 @@ export async function openPack(token) {
     })
     return res
 }
+
+export async function getCollection(token) {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/cardcol"
+
+    const res = await axios({
+        method: "GET",
+        url: url.toString(),
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return res
+}

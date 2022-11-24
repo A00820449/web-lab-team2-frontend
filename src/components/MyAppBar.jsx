@@ -8,6 +8,7 @@ import WebIcon from '@mui/icons-material/Web';
 import HomeIcon from '@mui/icons-material/Home';
 import BusinessCenterIcon from '@mui/icons-material/BusinessCenter';
 import AccountCircle from '@mui/icons-material/AccountCircle';
+import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import { Link as RouterLink } from 'react-router-dom'
 import { Box, Drawer, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 import { AppContext } from '../App';
@@ -47,7 +48,7 @@ export default function MyAppBar() {
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        <Box component={RouterLink} to="/" sx={{ display: 'inline', textDecoration: "none", color: "inherit" }}>
+                        <Box component={RouterLink} to="home" sx={{ display: 'inline', textDecoration: "none", color: "inherit" }}>
                             Animalia
                         </Box>
                     </Typography>
@@ -81,6 +82,14 @@ export default function MyAppBar() {
                                     <BusinessCenterIcon/>
                                 </ListItemIcon>
                                 <ListItemText primary="Open Packs"/>
+                            </ListItemButton>
+                        </ListItem>
+                        <ListItem disablePadding>
+                            <ListItemButton component={RouterLink} to="collection">
+                                <ListItemIcon>
+                                    <LibraryBooksIcon />
+                                </ListItemIcon>
+                                <ListItemText primary="My Collection"/>
                             </ListItemButton>
                         </ListItem>
                         <ListItem disablePadding>

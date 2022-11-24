@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "react-query";
 import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { useLocalStorage } from "./hooks";
 import AppLayout from "./layouts/AppLayout";
+import Collection from "./pages/Collection";
 import Error404 from "./pages/Error404";
 import Home from "./pages/Home";
 import Landing from "./pages/Landing";
@@ -28,12 +29,10 @@ const router = createBrowserRouter([{
         {
             index: true,
             element: <Navigate to="home" />
-        },
-        {
+        },{
             path: "home",
             element: <Home />
-        },
-        {
+        },{
             path: "placeholder",
             element: <Placeholder/>
         },{
@@ -42,6 +41,9 @@ const router = createBrowserRouter([{
         },{
             path: "packs",
             element: <PackPage/>
+        },{
+            path: "collection",
+            element: <Collection/>
         },{
             path: "*",
             element: <Navigate to="home" />
