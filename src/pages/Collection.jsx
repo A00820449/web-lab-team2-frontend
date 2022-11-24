@@ -4,7 +4,6 @@ import { Box } from "@mui/material";
 import { Container } from "@mui/material";
 import { useContext, useState } from "react";
 import { useQuery } from "react-query";
-import { set } from "store";
 import { getCollection } from "../api";
 import { AppContext } from "../App";
 import CardInCol from "../components/CardInCol";
