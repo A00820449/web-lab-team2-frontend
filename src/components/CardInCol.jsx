@@ -9,7 +9,7 @@ import React from "react";
  * @param {{
  *      card:{name: string,scientific_name: string,description: string,image_url: string,rarity: string,card_image_url: string},
  *      quantity: number,
- *      callback: React
+ *      callback: Function
  * }} param0 
  * @returns 
  */

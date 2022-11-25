@@ -81,3 +81,30 @@ export async function getCollection(token) {
 
     return res
 }
+
+export async function getNextPack() {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/nextpack"
+
+    const res = await axios({
+        url: url.toString(),
+        method: "GET"
+    })
+
+    return res.data
+}
+
+export async function postClaimPack(token) {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/claimpack"
+
+    const res = await axios({
+        url: url.toString(),
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return res.data
+}
