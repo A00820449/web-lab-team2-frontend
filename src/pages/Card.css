@@ -1,0 +1,12 @@
+@keyframes rotation {
+    from {
+        transform: rotateY(0);
+    }
+    to {
+        transform: rotateY(720deg);
+    }
+}
+
+.rotatingCard {
+    animation: rotation 2s cubic-bezier(0.25,0.5,0.25,1) 0s 1;
+}
