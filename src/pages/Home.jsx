@@ -183,7 +183,7 @@ export default function Home() {
 
     const dispacks = user?.packQuantity || ctxuser.packQuantity || 0
     const disname = user?.name || ctxuser.name || ""
-    const dislaspack = user?.lastFreePack || ctxuser?.lastFreePack || 0
+    const dislaspack = user?.lastFreePack || ctxuser?.lastFreePack || -1
     const disnextpack = pack?.next || Infinity
     let disnexttime = pack?.time || 0
 
@@ -216,7 +216,7 @@ export default function Home() {
               <Typography variant="h6">Time until next pack:</Typography>
               <CountDown time={disnexttime} callback={countdownCallback}/>
               <Box paddingY={2}>
-                <Button variant="contained" disabled={!canclaim || !mutation.isSuccess} onClick={claimHandler}>
+                <Button variant="contained" disabled={!canclaim || mutation.isLoading} onClick={claimHandler}>
                   Claim Pack
                 </Button>
               </Box>
