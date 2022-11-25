@@ -150,7 +150,7 @@ export default function Home() {
     const countdownCallback = useCallback(()=>{
       packrefetch()
       usrrefetch()
-    })
+    }, [packrefetch, usrrefetch])
 
     useEffect(()=>{
       if (usrstatus === "success") {
@@ -176,10 +176,10 @@ export default function Home() {
     const claimHandler = () => {
       mutation.mutate(token)
     }
-    const countdowncallback = ()=>{
+    /*const countdowncallback = ()=>{
       usrrefetch()
       packrefetch()
-    }
+    }*/
 
     const dispacks = user?.packQuantity || ctxuser.packQuantity || 0
     const disname = user?.name || ctxuser.name || ""
@@ -214,9 +214,9 @@ export default function Home() {
             {dispacks > 0 && packbutton}
             <Box>
               <Typography variant="h6">Time until next pack:</Typography>
-              <CountDown time={disnexttime} callback={countdowncallback}/>
+              <CountDown time={disnexttime} callback={countdownCallback}/>
               <Box paddingY={2}>
-                <Button variant="contained" disabled={!canclaim || mutation.isLoading} onClick={claimHandler}>
+                <Button variant="contained" disabled={!canclaim || !mutation.isSuccess} onClick={claimHandler}>
                   Claim Pack
                 </Button>
               </Box>
