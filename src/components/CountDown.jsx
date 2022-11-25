@@ -7,8 +7,7 @@ import { useState, useEffect, useCallback } from "react";
  */
 export default function CountDown({time, callback}) {
     const [timeLeft, setTimeLeft] = useState(time)
-    const memCallback = useCallback(() => {console.log("goodbye"); callback()}, [])
-    const [fired, setFired] = useState(false)
+    const memCallback = useCallback(() => {console.log("goodbye"); callback()}, [callback])
 
     useEffect(() => {
         const timer = setTimeout(()=>{
