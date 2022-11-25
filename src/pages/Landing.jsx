@@ -43,7 +43,7 @@ const theme = createTheme({
 });
 
 export default function Landing() {
-  const {data, status} = useQuery("allCards", async ()=> {return await getAllCards(10)})
+  const {data, status} = useQuery("allCards", async ()=> {return await getAllCards(12)})
 
   let cards = []
   if (status === "success") {
@@ -82,9 +82,11 @@ export default function Landing() {
               spacing={2}
               justifyContent="center"
             >
-                <Button variant="contained">
-                    <Link component={RouterLink} sx={{textDecoration: "none", color: "inherit"}} to="/app/home">Enter app</Link>
-                </Button>
+                <Link component={RouterLink} to="/app/home">
+                  <Button variant="contained" >
+                    Enter app
+                  </Button>
+                </Link>
             </Stack>
             <Typography sx={{textAlign: "center", paddingTop: "2rem"}}>The cards include these animals and more:</Typography>
           </Container>

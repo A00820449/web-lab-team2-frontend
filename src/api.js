@@ -55,9 +55,56 @@ export async function getAllCards(limit) {
     return res
 }
 
-export async function openPack() {
+export async function openPack(token) {
     const url = new URL(apiURL)
     url.pathname = "/cards/openpack"
     
-    return await axios.get(url.toString())
+    const res = await axios.post(url.toString(),{}, {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+    return res
+}
+
+export async function getCollection(token) {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/cardcol"
+
+    const res = await axios({
+        method: "GET",
+        url: url.toString(),
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return res
+}
+
+export async function getNextPack() {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/nextpack"
+
+    const res = await axios({
+        url: url.toString(),
+        method: "GET"
+    })
+
+    return res.data
+}
+
+export async function postClaimPack(token) {
+    const url = new URL(apiURL)
+    url.pathname = "/cards/claimpack"
+
+    const res = await axios({
+        url: url.toString(),
+        method: "POST",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+    return res.data
 }
